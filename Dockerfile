@@ -27,7 +27,7 @@ RUN apt-get -y update && \
     && \
 
 # install python dependencies
-    wget https://bootstrap.pypa.io/get-pip.py && \
+    wget https://bootstrap.pypa.io/pip/3.5/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py && \
     pip3 install numpy \
@@ -83,6 +83,6 @@ RUN apt-get -y update && \
         libv4l-dev \
     && \
     apt-get clean && \
-    rm -rf /opencv /opencv_contrib /var/lib/apt/lists/*
+    rm -rf /opencv /opencv_contrib /var/lib/apt/lists/* && \
     # TFLite Runtime
-RUN    pip3 install --index-url https://google-coral.github.io/py-repo/tflite_runtime
+    pip3 install --index-url https://google-coral.github.io/py-repo/ tflite_runtime
