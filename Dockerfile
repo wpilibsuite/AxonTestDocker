@@ -85,4 +85,4 @@ RUN apt-get -y update && \
     apt-get clean && \
     rm -rf /opencv /opencv_contrib /var/lib/apt/lists/* && \
     # TFLite Runtime
-    pip3 install --index-url https://google-coral.github.io/py-repo/ tflite_runtime
+    pip3 install --index-url https://google-coral.github.io/py-repo/tflite_runtime
