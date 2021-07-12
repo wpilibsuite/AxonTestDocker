@@ -41,7 +41,8 @@ RUN apt-get -y update && \
     wget https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip -O opencv_contrib3.zip && \
     unzip -q opencv_contrib3.zip && \
     mv /opencv_contrib-$OPENCV_VERSION /opencv_contrib && \
-    rm opencv_contrib3.zip \
+    rm opencv_contrib3.zip && \
+    pip3 install scipy \
     && \
 
 # Prepare build
@@ -68,7 +69,6 @@ RUN apt-get -y update && \
 
 # Clean
     apt-get -y remove \
-        python3-dev \
         libatlas-base-dev \
         gfortran \
         libjasper-dev \
