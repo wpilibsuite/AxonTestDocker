@@ -38,7 +38,6 @@ jobs:
         with:
           push: ${{ env.push }}
           load: ${{ !env.push }}
-          context: .
           file: /Dockerfile
           tags: ${{ steps.test_base_docker_meta.outputs.tags }}
           labels: ${{ steps.test_base_docker_meta.outputs.labels }}
