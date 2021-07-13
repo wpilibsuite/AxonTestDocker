@@ -23,16 +23,14 @@ RUN apt-get -y update && \
         libpng-dev \
         libtiff-dev \
         libjasper-dev \
-        libv4l-dev \
-    && \
+        libv4l-dev
 
 # install python dependencies
-    wget https://bootstrap.pypa.io/get-pip.py && \
+RUN wget https://bootstrap.pypa.io/pip/3.5/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py && \
-    pip3 install numpy \
-    && \
-
+    alias pip=pip3 &&\
+    pip install numpy && \
 # Install OpenCV
     wget https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip -O opencv3.zip && \
     unzip -q opencv3.zip && \
@@ -41,11 +39,10 @@ RUN apt-get -y update && \
     wget https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip -O opencv_contrib3.zip && \
     unzip -q opencv_contrib3.zip && \
     mv /opencv_contrib-$OPENCV_VERSION /opencv_contrib && \
-    rm opencv_contrib3.zip \
-    && \
+    rm opencv_contrib3.zip
 
 # Prepare build
-    mkdir /opencv/build && cd /opencv/build && \
+RUN mkdir /opencv/build && cd /opencv/build && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D BUILD_PYTHON_SUPPORT=ON \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -56,11 +53,10 @@ RUN apt-get -y update && \
       -D BUILD_opencv_python2=OFF \
       -D WITH_IPP=OFF \
       -D WITH_FFMPEG=ON \
-      -D WITH_V4L=ON .. \
-    && \
+      -D WITH_V4L=ON ..
 
 # Install
-    cd /opencv/build && \
+RUN cd /opencv/build && \
     make -j$(nproc) && \
     make install && \
     ldconfig \
@@ -84,6 +80,5 @@ RUN apt-get -y update && \
     && \
     apt-get clean && \
     rm -rf /opencv /opencv_contrib /var/lib/apt/lists/*
-    && \
-    # TFLite Runtime
-    pip3 install --index-url https://google-coral.github.io/py-repo/ tflite_runtime
+
+RUN pip3 install --index-url https://google-coral.github.io/py-repo/ tflite_runtime
